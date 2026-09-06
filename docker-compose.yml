@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  todo-app:
+    build: .
+    ports:
+      - "8000:8000"  # Updated to use port 8000
+    volumes:
+      - ./instance:/app/instance  # Persist Flask instance data including database
+      - ./data:/app/data          # Persist any additional data
+    environment:
+      - FLASK_ENV=production
+      - PORT=8000
+      - SQLALCHEMY_DATABASE_URI=sqlite:///instance/todo_manager.db
+    restart: unless-stopped
+    networks:
+      - todo-network
+    # Run as non-root user - uses host user ID to avoid permission issues
+    user: "${UID:-1000}:${GID:-1000}"
+
+volumes:
+  todo_data:
+
+networks:
+  todo-network:
+    driver: bridge

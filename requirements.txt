@@ -1,0 +1,12 @@
+# Core web application dependencies
+flask
+flask-sqlalchemy
+
+# Thermal printer and image generation
+python-escpos
+pillow
+reportlab
+pdf2image
+
+# Environment management
+python-dotenv
